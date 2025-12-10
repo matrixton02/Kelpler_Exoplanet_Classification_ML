@@ -2,6 +2,8 @@ import numpy as np
 import K_nearest_neighbour as knn
 import Dataset_preprocessor as dp
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 def plot(metrics,accuracies):                                                   # This fucntions plots the accuracies of different distance fuction KNN for our dataset
     plt.figure(figsize=(12, 6))
@@ -24,8 +26,9 @@ def plot(metrics,accuracies):                                                   
 
 if __name__=="__main__":
     filepath="data.csv"
-    X_train,X_test,y_train,y_test,X_train_scaled,X_test_scaled=dp.prepare_dataset(filepath)         # getting our training and tetsing dataset properly scaled by the data preprocessor
-
+    X_train,X_test,y_train,y_test=dp.split_test_train_data(filepath)                        # Splitting the training and tetsing dataset
+    X_train_scaled, X_test_scaled=dp.scale_dataset(X_train,X_test)                                # we tranform the variable so that the model doesn't get diverted by very large values so we need to scale it all down but still maintaing the ratio
+    
     metrics=[]
     accuracies=[]
     for dist in ["euclidean","manhattan","mahalanobis","rbf","rbf_normalized"]:                     # for each each type of distance fucntion we create object and do the training and testing (for KNN training is just memorizing the dataset)

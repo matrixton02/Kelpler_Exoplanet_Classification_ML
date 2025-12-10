@@ -54,7 +54,7 @@ def gradient_descent(X, y, alpha=0.1, num_iter=100, lambda_reg=0, tol=1e-7, verb
         if i % 100 == 0 or i == num_iter - 1:
             cost = compute_cost(theta, X_b, y, lambda_reg)
             cost_history.append(cost)
-            if verbose and i % (num_iter/100) == 0:
+            if verbose and i % (num_iter/100) == 0:                                                         # we print the training cost at total_number_of_iters/100 intervals
                 print(f"Iteration {i:5d}: Cost = {cost:.6f}, |grad| = {np.linalg.norm(grad):.6f}")
         
         if np.linalg.norm(grad) < tol:

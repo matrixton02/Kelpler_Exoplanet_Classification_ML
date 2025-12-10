@@ -2,6 +2,8 @@ import numpy as np
 import Logistic_regression as lg
 import Dataset_preprocessor as dp
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix, roc_auc_score,roc_curve
 
 
@@ -40,9 +42,9 @@ def plot_training_results(y_true, y_prob, cost_history):                        
     plt.show()
 
 def train_model(filepath,alpha=0.5,num_iter=10000,lambda_reg=0.01):                         # this fucntiosn trais our logistic regression model
-
-    X_train,X_test,Y_train,Y_test,X_train_scaled,X_test_scaled=dp.prepare_dataset(filepath)
-
+    X_train,X_test,Y_train,Y_test=dp.split_test_train_data(filepath)                        # splitting the dataset into training and tetsing
+    X_train_scaled, X_test_scaled=dp.scale_dataset(X_train,X_test)                                            # we tranform the variable so that the model doesn't get diverted by very large values so we need to scale it all down but still maintaing the ratio
+   
     print("\nTraining the model.....")
     theta,cost_history=lg.gradient_descent(X_train_scaled,Y_train,alpha,num_iter,lambda_reg,verbose=True)
     Y_train_pred=lg.predict(X_train_scaled,theta)
@@ -68,12 +70,12 @@ def train_model(filepath,alpha=0.5,num_iter=10000,lambda_reg=0.01):             
     print(confusion_matrix(Y_test, Y_test_pred))
     
     plot_training_results(Y_test,Y_test_prob,cost_history)
-    return theta, scaler, features
+    return theta
 
 if __name__=="__main__":
     filepath="data.csv"
     try:
-        theta,scaler,features=train_model(filepath,alpha=0.5,num_iter=100000,lambda_reg=0.01)
+        theta=train_model(filepath,alpha=0.5,num_iter=10000,lambda_reg=0.01)
         print("\n\n")
         print("MODEL TRAINING COMPLETE!")
         print("\n")

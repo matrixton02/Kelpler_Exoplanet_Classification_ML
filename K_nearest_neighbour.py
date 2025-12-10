@@ -1,5 +1,7 @@
 import numpy as np
 from collections import Counter
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
 
 class KNN:                                                      # class for our KNN
     def __init__(self,k,dist_type):

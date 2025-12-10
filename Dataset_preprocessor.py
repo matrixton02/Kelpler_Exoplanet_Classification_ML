@@ -31,9 +31,15 @@ def prepare_dataset(filepath):                                                  
 
     X=df_final[feature_comlumns].values
     y=df_final['target'].values
+    return X,y,feature_comlumns
 
+def split_test_train_data(filepath):
+    X,y,feature_columns=prepare_dataset(filepath)
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
+    return X_train,X_test,y_train,y_test
+
+def scale_dataset(X_train,X_test):
     scaler=StandardScaler()
     X_train_scaled=scaler.fit_transform(X_train)                                                # we tranform the variable so that the model doesn't get diverted by very large values so we need to scale it all down but still maintaing the ratio
     X_test_scaled=scaler.transform(X_test)
-    return X_train,X_test,y_train,y_test,X_train_scaled,X_test_scaled,feature_comlumns
+    return X_train_scaled,X_test_scaled
