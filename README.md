@@ -37,37 +37,34 @@ Only rows with valid Kepler dispositions were included.
 
 ---
 
-## 🧠 Distance Metrics Implemented
+## Distance Metrics Implemented
+Given two points **x** and **y** in n-dimensional space:
 
-### 1️⃣ **Euclidean Distance**
-\[
-d = \sqrt{\sum (x_i - y_i)^2}
-\]
+### 1. Euclidean Distance
+d(x, y) = sqrt( (x₁ - y₁)² + (x₂ - y₂)² + ... + (xₙ - yₙ)² )
 
-### 2️⃣ **Manhattan Distance**
-\[
-d = \sum |x_i - y_i|
-\]
+### 2. Manhattan Distance
+d(x, y) = |x₁ - y₁| + |x₂ - y₂| + ... + |xₙ - yₙ|
 
-### 3️⃣ **Mahalanobis Distance**
-\[
-d = \sqrt{(x-y)^T S^{-1}(x-y)}
-\]
-Accounts for **feature correlations** using the covariance matrix.
+### 3. Mahalanobis Distance
+d(x, y) = sqrt( (x - y)ᵀ · S⁻¹ · (x - y) )
 
-### 4️⃣ **RBF Kernel Distance**
-\[
-sim = e^{-\gamma \|x-y\|^2}, \quad d = 1 - sim
-\]
-A nonlinear distance metric.
+where:
+- (x - y) is the column vector of differences
+- S is the covariance matrix of the features
+- S⁻¹ is the inverse of S
 
-### 5️⃣ **RBF Normalized**
-Scaled variant:
+### 4. RBF Kernel Distance
+First define similarity using the RBF kernel:
 
-\[
-d = \frac{\|x-y\|^2}{n_{\text{features}}}
-\]
+sim(x, y) = exp( -γ · ||x - y||² )
 
+Then convert to a distance:
+
+d(x, y) = 1 - sim(x, y)
+
+### 5. Normalized Squared Distance
+d(x, y) = ( ||x - y||² ) / n_features
 ---
 
 ## 🧪 Experimental Results
@@ -83,8 +80,40 @@ d = \frac{\|x-y\|^2}{n_{\text{features}}}
 | **Logistic Regression (baseline)** | **82.5%** | Shows approximate linear separability |
 
 ---
+## 📊 Plots
 
-## 📌 Scientific Insights
+### The Logistic regression plot
+
+<img width="4500" height="1800" alt="image" src="https://github.com/user-attachments/assets/84f86b51-c0db-4c16-8d59-168f9e671362" />
+
+### The KNN plot
+
+<img width="3600" height="1800" alt="image" src="https://github.com/user-attachments/assets/86b104ed-420a-4f86-8db3-6b1819779fbc" />
+
+## Logistic Regression Performance (Kepler Exoplanet Dataset)
+
+### **Validation Set (80%)**
+- **Accuracy:** 0.8179  
+- **ROC–AUC:** 0.8879  
+
+**Confusion Matrix**
+|           |Predicted: Not Exoplanet	| Predicted: Exoplanet|
+|-----------|-------------------------|---------------------|
+| **Actual: Not Exoplanet** | 3011	| 654 |
+| **Actual: Exoplanet**	| 413	| 1782
+
+Accuracy: 0.8117
+
+ROC–AUC: 0.8859
+
+Confusion Matrix
+
+|               | Predicted: Not Exoplanet | Predicted: Exoplanet |
+|--------------|---------------------------|------------------------|
+| **Actual: Not Exoplanet** | 736 | 181 |
+| **Actual: Exoplanet**     | 95  | 454 |
+
+## 📌 Scientific Insight
 
 ### 🔹 1. **Kepler features are moderately linearly separable**
 This is why logistic regression performs well (82.5%).
@@ -141,7 +170,9 @@ When features are correlated (as in astrophysics), Mahalanobis distance is super
 
 ## 📞 Contact
 Feel free to explore the repo and message me about improvements or questions!
-Email:yashasvi21022005@gmail.com
-LinkedIn:https://www.linkedin.com/in/yashasvi-kumar-tiwari/
+
+Email: yashasvi21022005@gmail.com
+
+LinkedIn: https://www.linkedin.com/in/yashasvi-kumar-tiwari/
 
 
