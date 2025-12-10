@@ -141,8 +141,8 @@ You can test with different γ yourself and see the difference.
 
 ## 📁 Repository Structure
 ```
-├── knn.py # KNN implementation with all distance metrics
-├── preprocess.py # Data loading and cleaning for Kepler dataset
+├── K_nearest_neighbour.py # KNN implementation with all distance metrics
+├── Data_preprocessor.py # Data loading and cleaning for Kepler dataset
 ├── Kepler_Identification_KNN.py # Using KNN on the Kepler dataset using different distance fucntions
 ├── Kepler_identification_Lg.py # Using Logistic regression on the Kepler dataset
 ├── Knn_result.png # Accuracy bar graph for KNN representing the accuracy of different dataset fucnctions
