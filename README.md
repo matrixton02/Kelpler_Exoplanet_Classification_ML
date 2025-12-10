@@ -152,6 +152,8 @@ You can test with different γ yourself and see the difference.
 ```
 ---
 ## 🚀 How to Run
+Download the dataset keep it int he same folder and then go to the Kepler_implementation_KNN/LG.py and under if __name__=="__main__" update the filepath variable to your dataset location then,
+
 If you want to runt he logistic regression model:
 ```
 python Kepler_Identification_Lg.py
